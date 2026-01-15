@@ -1,5 +1,5 @@
-import { api } from '@/lib/api';
-import ProductCard from '@/components/ProductCard';
+import { api } from '../lib/api';
+import ProductCard from '../components/ProductCard';
 import { Suspense } from 'react';
 
 function ProductsGrid({ products }: { products: any[] }) {

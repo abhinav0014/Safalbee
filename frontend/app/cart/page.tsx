@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
-import { cart } from '@/lib/cart';
-import { CartItem } from '@/lib/types';
+import { cart } from '../lib/cart';
+import { CartItem } from '../lib/types';
 
 export default function CartPage() {
   const [items, setItems] = useState<CartItem[]>([]);
