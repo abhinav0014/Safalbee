@@ -1,14 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Enable standalone output for Docker
-  output: 'standalone',
+  output: 'export',
   
   // Image optimization
   images: {
     domains: ['images.unsplash.com'],
     unoptimized: process.env.NODE_ENV === 'development',
   },
-  
+  basePath: "/NirvaNest",
+  assetPrefix: "/NirvaNest/",
   // Enable React strict mode
   reactStrictMode: true,
   
