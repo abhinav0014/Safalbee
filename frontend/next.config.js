@@ -9,9 +9,6 @@ const nextConfig = {
     unoptimized: process.env.NODE_ENV === 'development',
   },
   
-  // Disable telemetry
-  telemetry: false,
-  
   // Enable React strict mode
   reactStrictMode: true,
   
