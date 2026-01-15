@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 45 100% 96%;
+    --foreground: 30 10% 10%;
+  }
+  
+  .dark {
+    --background: 240 10% 4%;
+    --foreground: 45 100% 90%;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .hexagon-pattern {
+    background-image: 
+      repeating-linear-gradient(120deg, rgba(251, 191, 36, 0.1) 0, rgba(251, 191, 36, 0.1) 1px, transparent 1px, transparent 60px),
+      repeating-linear-gradient(60deg, rgba(251, 191, 36, 0.1) 0, rgba(251, 191, 36, 0.1) 1px, transparent 1px, transparent 60px),
+      repeating-linear-gradient(0deg, rgba(251, 191, 36, 0.1) 0, rgba(251, 191, 36, 0.1) 1px, transparent 1px, transparent 60px);
+  }
+  
+  .honey-gradient {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fcd34d 100%);
+  }
+  
+  .honey-gradient-animated {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b, #fcd34d, #fbbf24);
+    background-size: 300% 300%;
+    animation: gradient-shift 3s ease infinite;
+  }
+  
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark .glass-effect {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

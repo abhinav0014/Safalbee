@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  # Backend - FastAPI
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: honey-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      # Application
+      APP_NAME: "Honey Industry API"
+      DEBUG: "False"
+      ENVIRONMENT: production
+      
+      # Security (CHANGE IN PRODUCTION!)
+      SECRET_KEY: "your-super-secret-key-change-this-in-production-min-32-chars"
+      ALGORITHM: "HS256"
+      ACCESS_TOKEN_EXPIRE_MINUTES: 43200
+      
+      # Cookie Settings
+      COOKIE_NAME: honey_session
+      COOKIE_SECURE: "False"
+      COOKIE_HTTPONLY: "True"
+      COOKIE_SAMESITE: lax
+      COOKIE_DOMAIN: localhost
+      
+      # CORS
+      ALLOWED_ORIGINS: "http://localhost:3000,http://frontend:3000"
+      FRONTEND_URL: "http://localhost:3000"
+      
+      # Database
+      DATABASE_URL: "sqlite+aiosqlite:///./data/dev.db"
+      
+      # Server
+      HOST: "0.0.0.0"
+      PORT: 8000
+    volumes:
+      # Persist database
+      - backend-data:/app/data
+      # Mount code for development (comment out for production)
+      # - ./backend:/app
+    networks:
+      - honey-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Frontend - Next.js
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: "http://localhost:8000"
+    container_name: honey-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # API URL - points to backend service
+      NEXT_PUBLIC_API_URL: "http://localhost:8000"
+      NODE_ENV: production
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - honey-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Nginx Reverse Proxy (Optional - for production)
+  # Uncomment if you want to use Nginx
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: honey-nginx
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+  #     - ./nginx/ssl:/etc/nginx/ssl:ro
+  #   depends_on:
+  #     - backend
+  #     - frontend
+  #   networks:
+  #     - honey-network
+
+volumes:
+  backend-data:
+    driver: local
+
+networks:
+  honey-network:
+    driver: bridge
