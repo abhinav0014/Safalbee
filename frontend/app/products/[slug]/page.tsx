@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Star, ShoppingCart, Heart, Share2, Minus, Plus, ArrowLeft, Check } from 'lucide-react';
-import { api } from '../lib/api';
-import { cart } from '../lib/cart';
-import { Product } from '../lib/types';
+import { api } from '@/lib/api';
+import { cart } from '@/lib/cart';
+import { Product } from '@/lib/types';
 
 export default function ProductDetailPage() {
   const params = useParams();

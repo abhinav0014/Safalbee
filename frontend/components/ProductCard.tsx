@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ShoppingCart, Star } from 'lucide-react';
-import { Product } from '../lib/types';
-import { cart } from '../lib/cart';
+import { Product } from '@/lib/types';
+import { cart } from '@/lib/cart';
 
 interface ProductCardProps {
   product: Product;

@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import HeroSection from '../components/HeroSection';
-import ProductCard from '../components/ProductCard';
-import { api } from '../lib/api';
+import HeroSection from '@/components/HeroSection';
+import ProductCard from '@/components/ProductCard';
+import { api } from '@/lib/api';
 import { Heart, Leaf, Award, Truck } from 'lucide-react';
 
 export default async function HomePage() {

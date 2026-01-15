@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ShoppingCart, Menu, X, User, LogOut } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
-import { api } from '../lib/api';
-import { cart } from '../lib/cart';
-import { User as UserType } from '../lib/types';
+import { api } from '@/lib/api';
+import { cart } from '@/lib/cart';
+import { User as UserType } from '@/lib/types';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
