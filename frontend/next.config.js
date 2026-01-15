@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Enable standalone output for Docker
-  output: 'export',
+  output: 'undefined',
   
   // Image optimization
   images: {
